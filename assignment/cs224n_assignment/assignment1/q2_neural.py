@@ -36,11 +36,26 @@ def forward_backward_prop(data, labels, params, dimensions):
     b2 = np.reshape(params[ofs:ofs + Dy], (1, Dy))
 
     ### YOUR CODE HERE: forward propagation
-    raise NotImplementedError
+    h = sigmoid(data.dot(W1) + b1)
+    y_beta = softmax(h.dot(W2) + b2)
+    
+    cost = -np.sum(np.log(y_beta[labels==1]))
     ### END YOUR CODE
 
     ### YOUR CODE HERE: backward propagation
-    raise NotImplementedError
+     # Backpropagate throughy_beta the first latent layer
+     # Calculate analytic gradient for the cross entropy loss function
+    d3 = ( y_beta - labels )
+
+    # Backpropagate through the second latent layer
+    gradW2 = np.dot( h.T, d3 )
+    gradb2 = np.sum( d3, axis=0, keepdims=True )
+
+    # Backpropagate through the first latent layer
+    d2 = np.dot( d3, W2.T ) * sigmoid_grad(h)
+
+    gradW1 = np.dot( data.T, d2 )
+    gradb1 = np.sum( d2, axis=0, keepdims=True )
     ### END YOUR CODE
 
     ### Stack gradients (do not modify)
@@ -55,7 +70,7 @@ def sanity_check():
     Set up fake data and parameters for the neural network, and test using
     gradcheck.
     """
-    print "Running sanity check..."
+    print("Running sanity check...")
 
     N = 20
     dimensions = [10, 5, 10]
@@ -78,7 +93,7 @@ def your_sanity_checks():
     This function will not be called by the autograder, nor will
     your additional tests be graded.
     """
-    print "Running your sanity checks..."
+    # print "Running your sanity checks..."
     ### YOUR CODE HERE
     raise NotImplementedError
     ### END YOUR CODE
@@ -86,4 +101,4 @@ def your_sanity_checks():
 
 if __name__ == "__main__":
     sanity_check()
-    your_sanity_checks()
+    #your_sanity_checks()

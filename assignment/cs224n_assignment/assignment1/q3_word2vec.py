@@ -15,7 +15,7 @@ def normalizeRows(x):
     """
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    x = x / np.sqrt(np.sum(np.power(x, 2), axis=1)).reshape([-1,1])
     ### END YOUR CODE
 
     return x
@@ -58,7 +58,13 @@ def softmaxCostAndGradient(predicted, target, outputVectors, dataset):
     """
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    l_sf = softmax(predicted.dot(outputVectors.T))
+    
+    cost = -np.log(l_sf[target - 1])
+    
+    gradPred = 
+    
+    grad = 
     ### END YOUR CODE
 
     return cost, gradPred, grad
@@ -155,7 +161,6 @@ def cbow(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
     gradOut = np.zeros(outputVectors.shape)
 
     ### YOUR CODE HERE
-    raise NotImplementedError
     ### END YOUR CODE
 
     return cost, gradIn, gradOut
@@ -239,4 +244,4 @@ def test_word2vec():
 
 if __name__ == "__main__":
     test_normalize_rows()
-    test_word2vec()
+    #test_word2vec()
