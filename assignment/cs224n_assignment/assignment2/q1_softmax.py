@@ -24,6 +24,7 @@ def softmax(x):
     """
 
     ### YOUR CODE HERE
+    
     ### END YOUR CODE
 
     return out
