@@ -226,7 +226,6 @@ class Vgg16():
                 test_batches, numpy array(s) of predictions for the test_batches.
     
         """
-        print(class_mode)
         test_batches = self.get_batches(path, shuffle=False, batch_size=batch_size, class_mode=class_mode)
         return test_batches, self.model.predict_generator(test_batches, test_batches.nb_sample)
 
